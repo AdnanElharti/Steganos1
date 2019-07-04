@@ -110,12 +110,10 @@ public class ResultatIntro extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (ContextCompat.checkSelfPermission(ResultatIntro.this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(ResultatIntro.this, "You have already granted this permission!",
-                            Toast.LENGTH_SHORT).show();
-                } else {
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     requestStoragePermission();
-                }                String root = Environment.getExternalStorageDirectory().toString();
+                } else {
+                     String root = Environment.getExternalStorageDirectory().toString();
                 File mDossier = new File(root+"/Download");
                 mDossier.mkdirs();
 
@@ -132,6 +130,7 @@ public class ResultatIntro extends AppCompatActivity {
 
                 }
 
+                }               
 
             }
         });
@@ -142,7 +141,7 @@ public class ResultatIntro extends AppCompatActivity {
     }
     private void requestStoragePermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
             new AlertDialog.Builder(this)
                     .setTitle("Permission needed")
@@ -151,7 +150,7 @@ public class ResultatIntro extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             ActivityCompat.requestPermissions(ResultatIntro.this,
-                                    new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+                                    new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
                         }
                     })
                     .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -164,7 +163,7 @@ public class ResultatIntro extends AppCompatActivity {
 
         } else {
             ActivityCompat.requestPermissions(this,
-                    new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+                    new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
         }
     }
 
